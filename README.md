@@ -52,7 +52,7 @@ The-Dessert-Spot/
 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/The-Dessert-Spot.git
+git clone https://github.com/yashraj1317/The-Dessert-Spot.git
 ```
 
 2. Open the project folder.
@@ -63,23 +63,18 @@ git clone https://github.com/YOUR_USERNAME/The-Dessert-Spot.git
 
 ## 📸 Screenshots
 
-### Home Page
-
-(Add Screenshot)
 
 ### Shop Page
 
-(Add Screenshot)
+![Shop Page](images/shop.png)
 
 ### Order Page
 
-(Add Screenshot)
+![Order Page](images/Order.png)
 
 ### Admin Dashboard
 
-(Add Screenshot)
-
----
+![Admin Dashboard](images/admin_dashboard.png)
 
 ## 🔮 Future Enhancements
 

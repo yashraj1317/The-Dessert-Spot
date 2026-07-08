@@ -22,7 +22,7 @@ A responsive dessert shop web application that allows customers to browse desser
 - HTML5
 - CSS3
 - JavaScript
-- Firebase (if used)
+- Firebase 
 - Responsive Web Design
 
 ---
@@ -74,7 +74,7 @@ git clone https://github.com/yashraj1317/The-Dessert-Spot.git
 
 ### Admin Dashboard
 
-![Admin Dashboard](images/admin dashboard.png)
+![Admin Dashboard](images/admin.png)
 
 ## 🔮 Future Enhancements
 

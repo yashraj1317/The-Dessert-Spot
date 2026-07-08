@@ -74,7 +74,7 @@ git clone https://github.com/yashraj1317/The-Dessert-Spot.git
 
 ### Admin Dashboard
 
-![Admin Dashboard](images/admin_dashboard.png)
+![Admin Dashboard](images/admin dashboard.png)
 
 ## 🔮 Future Enhancements
 

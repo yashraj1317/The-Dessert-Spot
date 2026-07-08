@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Dessert Spot</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Poppins, sans-serif;
+      background: #f8f8f8;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff9a00, #ff3d00);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .menu {
+      flex: 2;
+    }
+
+    .category {
+      margin-bottom: 30px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .item:hover {
+      transform: scale(1.02);
+    }
+
+    .item img {
+      width: 60px;
+      animation: float 3s infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-5px)
+      }
+
+      100% {
+        transform: translateY(0)
+      }
+    }
+
+    .cart {
+      flex: 1;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      background: #ff9a00;
+      border: none;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .checkout {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: #ff3d00;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">🍨 The Dessert Spot</div>
+
+  <div class="container">
+
+    <div class="menu">
+
+      <!-- CHOCOLATE BOWLS -->
+      <div class="category">
+        <h2>🍫 Chocolate Bowls</h2>
+
+        <div class="item" data-name="Dark Chocolate Bowl" data-small="79" data-big="139">
+          <b>Dark Chocolate Bowl ₹79/₹139</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option>Small</option>
+              <option>Big</option>
+            </select>
+            <input type="number" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Classic Chocolate Bowl" data-small="79" data-big="139">
+          <b>Classic Chocolate Bowl ₹79/₹139</b>
+          <div>
+            <select class="size">
+              <option>Size</option>
+              <option>Small</option>
+              <option>Big</option>
+            </select>
+            <input type="number" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="White Chocolate Bowl" data-small="79" data-big="139">
+          <b>White Chocolate Bowl ₹79/₹139</b>
+          <div>
+            <select class="size">
+              <option>Size</option>
+              <option>Small</option>
+              <option>Big</option>
+            </select>
+            <input type="number" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Triple Chocolate Bowl" data-small="99" data-big="149">
+          <b>Triple Chocolate Bowl ₹99/₹149</b>
+          <div>
+            <select class="size">
+              <option>Size</option>
+              <option>Small</option>
+              <option>Big</option>
+            </select>
+            <input type="number" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Oreo Chocolate Bowl" data-small="99" data-big="149">
+          <b>Oreo Chocolate Bowl ₹99/₹149</b>
+          <div>
+            <select class="size">
+              <option>Size</option>
+              <option>Small</option>
+              <option>Big</option>
+            </select>
+            <input type="number" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="KitKat Chocolate Bowl" data-small="99" data-big="149">
+          <b>KitKat Chocolate Bowl ₹99/₹149</b>
+          <div>
+            <select class="size">
+              <option>Size</option>
+              <option>Small</option>
+              <option>Big</option>
+            </select>
+            <input type="number" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Biscoff Chocolate Bowl" data-small="119" data-big="159">
+          <b>Biscoff Chocolate Bowl ₹119/₹159</b>
+          <div>
+            <select class="size">
+              <option>Size</option>
+              <option>Small</option>
+              <option>Big</option>
+            </select>
+            <input type="number" value="0" class="qty">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- WAFFLES -->
+      <div class="category">
+        <h2>🧇 Waffles</h2>
+
+        <div class="item" data-name="Chocolate Chip Waffle" data-price="89">
+          <b>Chocolate Chip Waffle ₹89</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Nutella Waffle" data-price="99">
+          <b>Nutella Waffle ₹99</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Triple Chocolate Waffle" data-price="99">
+          <b>Triple Chocolate Waffle ₹99</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Oreo Chocolate Waffle" data-price="89">
+          <b>Oreo Chocolate Waffle ₹89</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Biscoff Waffle" data-price="99">
+          <b>Biscoff Waffle ₹99</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+      </div>
+
+      <!-- WAFFLE + ICE CREAM -->
+      <div class="category">
+        <h2>🍦 Waffles + Ice Cream</h2>
+
+        <div class="item" data-name="Chocolate Waffle + Ice Cream" data-price="129">
+          <b>Chocolate + Ice Cream ₹129</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Nutella Waffle + Ice Cream" data-price="149">
+          <b>Nutella + Ice Cream ₹149</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Brownie Waffle + Ice Cream" data-price="149">
+          <b>Brownie + Ice Cream ₹149</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Oreo Waffle + Ice Cream" data-price="139">
+          <b>Oreo + Ice Cream ₹139</b>
+          <input type="number" value="0" class="qty">
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CART -->
+    <div class="cart">
+      <h3>Cart</h3>
+      <div id="cart"></div>
+      <h3>Total ₹<span id="total">0</span></h3>
+      <button class="checkout" onclick="order()">Order</button>
+    </div>
+
+  </div>
+
+  <script>
+
+    let items = document.querySelectorAll(".item");
+
+    function calc() {
+      let total = 0;
+      let cartHTML = "";
+
+      items.forEach(i => {
+        let qty = i.querySelector(".qty").value;
+
+        if (qty > 0) {
+
+          let price = 0;
+
+          if (i.dataset.price) {
+            price = Number(i.dataset.price);
+          } else {
+            let size = i.querySelector(".size").value;
+            price = size === "Big" ? i.dataset.big : i.dataset.small;
+          }
+
+          total += price * qty;
+
+          cartHTML += `<p>${i.dataset.name} x${qty}</p>`;
+        }
+      });
+
+      document.getElementById("total").innerText = total;
+      document.getElementById("cart").innerHTML = cartHTML;
+
+      localStorage.setItem("orderTotal", total);
+    }
+
+    document.querySelectorAll("input,select").forEach(e => {
+      e.addEventListener("change", calc);
+    });
+
+    function order() {
+      window.location.href = "success.html";
+    }
+    db.ref("menu").on("value", function (snapshot) {
+
+      const menuDiv = document.getElementById("menu");
+      menuDiv.innerHTML = "";
+
+      snapshot.forEach(function (child) {
+
+        let item = child.val();
+
+        if (item.category === "bowl") {
+
+          menuDiv.innerHTML += `
+<div class="item" data-small="${item.small}" data-big="${item.big}">
+<span>${item.name}</span>
+
+<select class="size">
+<option value="">Size</option>
+<option value="Small">Small</option>
+<option value="Big">Big</option>
+</select>
+
+<input type="number" min="0" value="0" class="qty">
+</div>
+`;
+
+        } else {
+
+          menuDiv.innerHTML += `
+<div class="item" data-price="${item.price}">
+<span>${item.name}</span>
+
+<input type="number" min="0" value="0" class="qty">
+</div>
+`;
+
+        }
+
+      });
+
+      attachEvents();
+
+    });
+  </script>
+
+</body>
+
+</html>

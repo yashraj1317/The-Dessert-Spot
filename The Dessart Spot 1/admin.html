@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Dessert Spot</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #222;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    input,
+    select {
+      padding: 6px;
+      margin: 4px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .save {
+      background: #00c853;
+      color: white;
+    }
+
+    .delete {
+      background: #ff1744;
+      color: white;
+    }
+
+    .add {
+      background: #2979ff;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>🍨 Admin Menu Control</h2>
+
+  <!-- ADD ITEM -->
+  <div class="section">
+    <h3>Add New Item</h3>
+
+    <input id="name" placeholder="Item Name">
+    <select id="type">
+      <option value="bowl">Chocolate Bowl</option>
+      <option value="waffle">Waffle</option>
+      <option value="ice">Waffle + Ice Cream</option>
+    </select>
+
+    <input id="small" placeholder="Small Price (for bowl)">
+    <input id="big" placeholder="Big Price (for bowl)">
+    <input id="price" placeholder="Normal Price (for waffle)">
+
+    <button class="add" onclick="addItem()">Add Item</button>
+
+  </div>
+
+  <!-- MENU LIST -->
+  <div class="section">
+    <h3>Menu Items</h3>
+    <div id="menuList"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      databaseURL: "YOUR_DATABASE_URL"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+
+    // ================= ADD ITEM =================
+    function addItem() {
+
+      let item = {
+        name: document.getElementById("name").value,
+        type: document.getElementById("type").value,
+        small: document.getElementById("small").value || 0,
+        big: document.getElementById("big").value || 0,
+        price: document.getElementById("price").value || 0
+      };
+
+      db.ref("menu").push(item);
+
+      alert("Item Added");
+
+    }
+
+
+    // ================= LOAD MENU =================
+    db.ref("menu").on("value", snapshot => {
+
+      let html = "";
+
+      snapshot.forEach(data => {
+
+        let item = data.val();
+        let id = data.key;
+
+        html += `
+<div class="card">
+
+<input value="${item.name}" id="name_${id}">
+
+<select id="type_${id}">
+  <option value="bowl" ${item.type == "bowl" ? "selected" : ""}>Chocolate Bowl</option>
+  <option value="waffle" ${item.type == "waffle" ? "selected" : ""}>Waffle</option>
+  <option value="ice" ${item.type == "ice" ? "selected" : ""}>Waffle + Ice Cream</option>
+</select>
+
+<input value="${item.small}" id="small_${id}" placeholder="Small">
+<input value="${item.big}" id="big_${id}" placeholder="Big">
+<input value="${item.price}" id="price_${id}" placeholder="Price">
+
+<button class="save" onclick="updateItem('${id}')">Save</button>
+<button class="delete" onclick="deleteItem('${id}')">Delete</button>
+
+</div>
+`;
+
+      });
+
+      document.getElementById("menuList").innerHTML = html;
+
+    });
+
+
+    // ================= UPDATE =================
+    function updateItem(id) {
+
+      let updated = {
+        name: document.getElementById("name_" + id).value,
+        type: document.getElementById("type_" + id).value,
+        small: document.getElementById("small_" + id).value,
+        big: document.getElementById("big_" + id).value,
+        price: document.getElementById("price_" + id).value
+      };
+
+      db.ref("menu/" + id).update(updated);
+
+      alert("Updated");
+
+    }
+
+
+    // ================= DELETE =================
+    function deleteItem(id) {
+
+      if (confirm("Delete this item?")) {
+        db.ref("menu/" + id).remove();
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>

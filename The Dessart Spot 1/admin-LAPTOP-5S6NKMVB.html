@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Panel</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      padding: 20px;
+    }
+
+    .box {
+      background: #222;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+    }
+
+    input,
+    select {
+      padding: 6px;
+      margin: 5px;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .add {
+      background: #00ffcc;
+    }
+
+    .update {
+      background: orange;
+    }
+
+    .delete {
+      background: red;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🔥 Admin Menu Control</h1>
+
+  <!-- ADD NEW ITEM -->
+  <h3>Add Item</h3>
+
+  <input id="name" placeholder="Item Name">
+  <select id="category">
+    <option value="bowl">Bowl</option>
+    <option value="waffle">Waffle</option>
+    <option value="icecream">Waffle+Icecream</option>
+  </select>
+
+  <input id="small" placeholder="Small Price">
+  <input id="big" placeholder="Big Price">
+  <input id="price" placeholder="Price (Waffle)">
+
+  <button class="add" onclick="addItem()">Add Item</button>
+
+  <hr>
+
+  <h2>📋 All Menu Items</h2>
+  <div id="menuList"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+
+    const firebaseConfig = {
+      apiKey: "YOUR_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com/",
+      projectId: "YOUR_PROJECT"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+
+    // ✅ LOAD MENU
+    function loadMenu() {
+
+      db.ref("menu").on("value", snapshot => {
+
+        const list = document.getElementById("menuList");
+        list.innerHTML = "";
+
+        snapshot.forEach(child => {
+
+          const item = child.val();
+          const key = child.key;
+
+          list.innerHTML += `
+
+<div class="box">
+
+<b>${item.name}</b> (${item.category})
+
+<br>
+
+${item.category === "bowl" ? `
+Small: <input value="${item.small}" id="s_${key}">
+Big: <input value="${item.big}" id="b_${key}">
+` : `
+Price: <input value="${item.price}" id="p_${key}">
+`}
+
+<br>
+
+<button class="update" onclick="updateItem('${key}','${item.category}')">Update</button>
+
+<button class="delete" onclick="deleteItem('${key}')">Delete</button>
+
+</div>
+
+`;
+
+        });
+
+      });
+
+    }
+
+
+    // ✅ ADD ITEM
+    function addItem() {
+
+      const name = document.getElementById("name").value;
+      const category = document.getElementById("category").value;
+
+      let data = { name, category };
+
+      if (category === "bowl") {
+        data.small = Number(document.getElementById("small").value);
+        data.big = Number(document.getElementById("big").value);
+      } else {
+        data.price = Number(document.getElementById("price").value);
+      }
+
+      db.ref("menu").push(data);
+
+      alert("Item Added ✅");
+
+    }
+
+
+    // ✅ UPDATE
+    function updateItem(key, category) {
+
+      if (category === "bowl") {
+
+        const small = document.getElementById("s_" + key).value;
+        const big = document.getElementById("b_" + key).value;
+
+        db.ref("menu/" + key).update({
+          small: Number(small),
+          big: Number(big)
+        });
+
+      } else {
+
+        const price = document.getElementById("p_" + key).value;
+
+        db.ref("menu/" + key).update({
+          price: Number(price)
+        });
+
+      }
+
+      alert("Updated ✅");
+
+    }
+
+
+    // ✅ DELETE
+    function deleteItem(key) {
+
+      if (confirm("Delete this item?")) {
+        db.ref("menu/" + key).remove();
+      }
+
+    }
+
+
+    // LOAD ON START
+    loadMenu();
+
+  </script>
+
+</body>
+
+</html>

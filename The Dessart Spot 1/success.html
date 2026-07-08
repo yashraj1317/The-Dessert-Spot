@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmed</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 350px;
+      margin: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .token {
+      font-size: 42px;
+      color: #ff006e;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <h2>Order Confirmed 🎉</h2>
+
+    <p>Your Token Number</p>
+    <div class="token" id="token"></div>
+
+    <p id="customer"></p>
+    <p id="phone"></p>
+
+    <p id="discount"></p>
+
+    <h3 id="total"></h3>
+
+  </div>
+
+
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+
+    // ================= FIREBASE CONFIG =================
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "dessert-order-system.firebaseapp.com",
+      databaseURL: "https://dessert-order-system-200b5-default-rtdb.firebaseio.com/",
+      projectId: "dessert-order-system",
+      storageBucket: "dessert-order-system.appspot.com",
+      messagingSenderId: "XXXXXXXX",
+      appId: "XXXXXXXX"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+
+    // ================= TOKEN SYSTEM =================
+
+    let lastToken = Number(localStorage.getItem("lastToken") || 100);
+    let newToken = lastToken + 1;
+
+    if (newToken > 300) {
+      newToken = 101;
+    }
+
+    localStorage.setItem("lastToken", newToken);
+    document.getElementById("token").innerText = newToken;
+
+
+    // ================= GET ORDER DATA =================
+
+    const name = localStorage.getItem("customerName") || "Customer";
+    const phone = localStorage.getItem("customerPhone") || "-";
+    const total = Number(localStorage.getItem("orderTotal")) || 0;
+    const orderType = localStorage.getItem("orderType") || "Eat Now";
+
+    let reward = localStorage.getItem("spinReward") || "";
+    let items = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let finalTotal = total;
+    let rewardText = "";
+
+    // ================= DISPLAY DATA =================
+
+    document.getElementById("customer").innerText = "Name: " + name;
+    document.getElementById("phone").innerText = "Phone: " + phone;
+
+    document.getElementById("total").innerText =
+      "Final Amount: ₹" + finalTotal.toFixed(2);
+
+
+    // ================= SEND ORDER TO FIREBASE =================
+
+    let orderData = {
+
+      token: newToken,
+      name: name,
+      phone: phone,
+      items: items,
+      orderType: orderType,
+      amount: finalTotal,
+      time: new Date().toLocaleString()
+
+    };
+
+    push(ref(database, "orders"), orderData);
+
+
+    // ================= CLEAR OLD DATA =================
+
+    localStorage.removeItem("cart");
+
+  </script>
+
+</body>
+
+</html>

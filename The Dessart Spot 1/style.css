@@ -1,0 +1,67 @@
+//* ===============================
+   ORDER SUCCESS PAGE
+   =============================== */
+
+.success-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  padding: 50px 35px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  animation: successPop 0.9s ease-out;
+}
+
+/* Check icon */
+.success-icon {
+  font-size: 90px;
+  color: #4caf50;
+  margin-bottom: 20px;
+  animation: checkBounce 1s ease;
+}
+
+/* Text */
+.success-card h1 {
+  font-size: 2.3rem;
+  margin-bottom: 10px;
+}
+
+.success-card p {
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+/* Button reuse */
+.success-card .btn {
+  margin-top: 25px;
+  display: inline-block;
+}
+
+/* Animations */
+@keyframes successPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes checkBounce {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

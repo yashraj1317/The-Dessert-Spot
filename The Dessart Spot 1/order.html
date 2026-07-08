@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Dessert Spot</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Poppins, sans-serif;
+      background: #f8f8f8;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff9a00, #ff3d00);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .menu {
+      flex: 2;
+    }
+
+    .category {
+      margin-bottom: 30px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .item:hover {
+      transform: scale(1.02);
+    }
+
+    .cart {
+      flex: 1;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      height: fit-content;
+    }
+
+    .cart p {
+      margin: 6px 0;
+    }
+
+    button {
+      background: #ff9a00;
+      border: none;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .checkout {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: #ff3d00;
+      color: white;
+      font-size: 16px;
+    }
+
+    .order-type {
+      margin: 15px 0;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .order-type label {
+      font-weight: 600;
+    }
+
+    input.qty {
+      width: 70px;
+    }
+
+    select.size {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">🍨 The Dessert Spot</div>
+
+  <div class="container">
+
+    <div class="menu">
+
+      <!-- CHOCOLATE BOWLS -->
+      <div class="category">
+        <h2>🍫 Chocolate Bowls</h2>
+
+        <div class="item" data-name="Dark Chocolate Bowl" data-small="79" data-big="139">
+          <b>Dark Chocolate Bowl ₹79/₹139</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Classic Chocolate Bowl" data-small="79" data-big="139">
+          <b>Classic Chocolate Bowl ₹79/₹139</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="White Chocolate Bowl" data-small="79" data-big="139">
+          <b>White Chocolate Bowl ₹79/₹139</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Triple Chocolate Bowl" data-small="99" data-big="149">
+          <b>Triple Chocolate Bowl ₹99/₹149</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Oreo Chocolate Bowl" data-small="99" data-big="149">
+          <b>Oreo Chocolate Bowl ₹99/₹149</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="KitKat Chocolate Bowl" data-small="99" data-big="149">
+          <b>KitKat Chocolate Bowl ₹99/₹149</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Red Velvet + Dark Chocolate" data-small="99" data-big="149">
+          <b>Red Velvet + Dark Chocolate ₹99/₹149</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Red Velvet + White Chocolate" data-small="99" data-big="149">
+          <b>Red Velvet + White Chocolate ₹99/₹149</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+
+        <div class="item" data-name="Biscoff Chocolate Bowl" data-small="119" data-big="159">
+          <b>Biscoff Chocolate Bowl ₹119/₹159</b>
+          <div>
+            <select class="size">
+              <option value="">Size</option>
+              <option value="Small">Small</option>
+              <option value="Big">Big</option>
+            </select>
+            <input type="number" min="0" value="0" class="qty">
+          </div>
+        </div>
+      </div>
+
+      <!-- WAFFLES -->
+      <div class="category">
+        <h2>🧇 Waffles</h2>
+
+        <div class="item" data-name="Chocolate Chip Waffle" data-price="89">
+          <b>Chocolate Chip Waffle ₹89</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Nutella Waffle" data-price="99">
+          <b>Nutella Waffle ₹99</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Triple Chocolate Waffle" data-price="99">
+          <b>Triple Chocolate Waffle ₹99</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Oreo Chocolate Waffle" data-price="89">
+          <b>Oreo Chocolate Waffle ₹89</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Biscoff Waffle" data-price="99">
+          <b>Biscoff Waffle ₹99</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+      </div>
+
+      <!-- WAFFLES + ICE CREAM -->
+      <div class="category">
+        <h2>🍦 Waffles + Ice Cream</h2>
+
+        <div class="item" data-name="Chocolate Waffle + Vanilla Ice Cream" data-price="129">
+          <b>Chocolate Waffle + Vanilla Ice Cream ₹129</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Nutella Waffle + Ice Cream" data-price="149">
+          <b>Nutella Waffle + Ice Cream ₹149</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Brownie Chocolate Waffle + Ice Cream" data-price="149">
+          <b>Brownie Chocolate Waffle + Ice Cream ₹149</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+
+        <div class="item" data-name="Oreo Chocolate Waffle + Ice Cream" data-price="139">
+          <b>Oreo Chocolate Waffle + Ice Cream ₹139</b>
+          <input type="number" min="0" value="0" class="qty">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CART -->
+    <div class="cart">
+      <h3>Cart</h3>
+
+      <div class="order-type">
+        <label>
+          <input type="radio" name="type" value="eat" checked>
+          🍽 Eat Now
+        </label>
+        <label>
+          <input type="radio" name="type" value="take">
+          📦 Take Away (+₹5)
+        </label>
+      </div>
+
+      <div id="cart"></div>
+      <h3>Total ₹<span id="total">0</span></h3>
+      <button class="checkout" onclick="placeOrder()">Order</button>
+    </div>
+
+  </div>
+
+  <script>
+    const items = document.querySelectorAll(".item");
+
+    function calc() {
+      let total = 0;
+      let cartHTML = "";
+      let cartData = [];
+
+      items.forEach(item => {
+        const qty = Number(item.querySelector(".qty").value);
+
+        if (qty <= 0) return;
+
+        let price = 0;
+        let size = "";
+
+        if (item.dataset.price) {
+          price = Number(item.dataset.price);
+        } else {
+          const sizeSelect = item.querySelector(".size");
+          size = sizeSelect.value;
+
+          if (!size) return;
+
+          price = size === "Big"
+            ? Number(item.dataset.big)
+            : Number(item.dataset.small);
+        }
+
+        const itemTotal = price * qty;
+        total += itemTotal;
+
+        cartHTML += `<p>${item.dataset.name}${size ? " - " + size : ""} x ${qty} = ₹${itemTotal}</p>`;
+
+        cartData.push({
+          name: item.dataset.name,
+          size: size,
+          qty: qty,
+          price: price
+        });
+      });
+
+      const orderType = document.querySelector('input[name="type"]:checked').value;
+      if (orderType === "take" && total > 0) {
+        total += 5;
+        cartHTML += `<p>Take Away Charge = ₹5</p>`;
+      }
+
+      document.getElementById("cart").innerHTML = cartHTML;
+      document.getElementById("total").innerText = total;
+
+      localStorage.setItem("cart", JSON.stringify(cartData));
+      localStorage.setItem("orderTotal", total);
+      localStorage.setItem("orderType", orderType);
+    }
+
+    document.querySelectorAll("input, select").forEach(el => {
+      el.addEventListener("input", calc);
+      el.addEventListener("change", calc);
+    });
+
+    function placeOrder() {
+      const total = Number(document.getElementById("total").innerText);
+
+      if (total <= 0) {
+        alert("Please select items first");
+        return;
+      }
+
+      window.location.href = "success.html";
+    }
+  </script>
+
+</body>
+
+</html>

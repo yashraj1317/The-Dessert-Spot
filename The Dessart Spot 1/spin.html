@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Premium Spin Wheel</title>
+
+<style>
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#f2f2f2;
+  font-family:Poppins,sans-serif;
+}
+
+.container{
+  position:relative;
+  width:400px;
+  height:400px;
+}
+
+canvas{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  box-shadow:0 15px 40px rgba(0,0,0,0.25);
+  transition:transform 6s cubic-bezier(0.22,1,0.36,1);
+}
+
+.pointer{
+  position:absolute;
+  top:-25px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
+  border-top:30px solid #333;
+  z-index:10;
+}
+
+.center-btn{
+  position:absolute;
+  width:130px;
+  height:130px;
+  background:white;
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:28px;
+  font-weight:bold;
+  color:#6a00f4;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  cursor:pointer;
+  user-select:none;
+}
+
+/* ===== POPUP ===== */
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  visibility:hidden;
+  opacity:0;
+  transition:0.4s;
+}
+
+.popup.active{
+  visibility:visible;
+  opacity:1;
+}
+
+.popup-box{
+  background:white;
+  padding:30px 40px;
+  border-radius:20px;
+  text-align:center;
+  animation:pop 0.4s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0.5);}
+  to{transform:scale(1);}
+}
+
+#continueBtn{
+  margin-top:15px;
+  padding:10px 20px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  background:#6a00f4;
+  color:white;
+  cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="pointer"></div>
+  <canvas id="wheel" width="400" height="400"></canvas>
+  <div class="center-btn" id="spinBtn">SPIN</div>
+</div>
+
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h2 id="popupTitle"></h2>
+    <p id="popupText"></p>
+
+    <button id="continueBtn" onclick="finishOrder()">Continue</button>
+  </div>
+</div>
+
+
+<script>
+
+const canvas = document.getElementById("wheel");
+const ctx = canvas.getContext("2d");
+const spinBtn = document.getElementById("spinBtn");
+const popup = document.getElementById("popup");
+const popupTitle = document.getElementById("popupTitle");
+const popupText = document.getElementById("popupText");
+
+const rewards = [
+  "5% OFF",
+  "10% OFF",
+  "Better Luck Next Time",
+  "Extra Toppings",
+  "Small Dark Chocolate Bowl FREE",
+  "15% OFF"
+];
+
+const colors = [
+  "#ff006e",
+  "#8338ec",
+  "#3a86ff",
+  "#38b000",
+  "#ffbe0b",
+  "#fb5607"
+];
+
+let currentRotation = 0;
+
+/* DRAW WHEEL */
+
+function drawWheel(){
+
+  const sliceAngle = (2*Math.PI)/rewards.length;
+
+  for(let i=0;i<rewards.length;i++){
+
+    const start = i*sliceAngle;
+    const end = start + sliceAngle;
+
+    ctx.beginPath();
+    ctx.moveTo(200,200);
+    ctx.arc(200,200,200,start,end);
+    ctx.fillStyle = colors[i];
+    ctx.fill();
+
+    ctx.save();
+    ctx.translate(200,200);
+    ctx.rotate(start + sliceAngle/2);
+
+    ctx.fillStyle="white";
+    ctx.font="bold 14px Arial";
+    ctx.textAlign="right";
+
+    if(i === 4){
+      ctx.fillText("Small Dark",180,-10);
+      ctx.fillText("Chocolate Bowl",180,5);
+      ctx.fillText("FREE",180,20);
+    }
+    else if(i === 2){
+      ctx.fillText("Better Luck",180,-5);
+      ctx.fillText("Next Time",180,12);
+    }
+    else{
+      ctx.fillText(rewards[i],180,5);
+    }
+
+    ctx.restore();
+  }
+}
+
+drawWheel();
+
+
+/* CONTROLLED PROBABILITY */
+
+function getControlledIndex(){
+
+  const chance = Math.floor(Math.random()*20)+1;
+
+  if(chance === 1){
+      const rare = [4,5];
+      return rare[Math.floor(Math.random()*rare.length)];
+  }
+
+  const normal = [0,0,1,2,2,2,3];
+  return normal[Math.floor(Math.random()*normal.length)];
+}
+
+
+/* SPIN */
+
+spinBtn.addEventListener("click",function(){
+
+  spinBtn.style.pointerEvents="none";
+
+  const index = getControlledIndex();
+
+  const sliceAngle = 360 / rewards.length;
+  const pointerAngle = 270;
+
+  const targetAngle =
+      pointerAngle - (index * sliceAngle + sliceAngle/2);
+
+  const spins = 8;
+
+  const finalRotation =
+      currentRotation +
+      spins * 360 +
+      (targetAngle - (currentRotation % 360));
+
+  currentRotation = finalRotation;
+
+  canvas.style.transform = "rotate("+finalRotation+"deg)";
+
+
+  setTimeout(function(){
+
+      const reward = rewards[index];
+
+      if(reward === "Better Luck Next Time"){
+          popupTitle.innerText = "Oops!";
+          popupText.innerText = "Better Luck Next Time";
+      }
+      else{
+          popupTitle.innerText = "Congratulations 🎉";
+          popupText.innerText = "You Won: " + reward;
+      }
+
+      popup.classList.add("active");
+
+      spinBtn.style.pointerEvents="auto";
+
+  },6000);
+
+});
+
+
+/* CONTINUE */
+
+function finishOrder(){
+
+ const reward = popupText.innerText;
+
+ localStorage.setItem("spinReward",reward);
+
+ window.location.href="success.html";
+
+}
+
+</script>
+
+</body>
+</html>

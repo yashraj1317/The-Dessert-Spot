@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shop Orders</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#111;
+color:white;
+padding:20px;
+}
+
+.order{
+background:#222;
+padding:15px;
+margin-bottom:15px;
+border-radius:10px;
+}
+
+.token{
+font-size:26px;
+color:#00ffcc;
+font-weight:bold;
+}
+
+.parcel{
+color:yellow;
+font-weight:bold;
+}
+
+.items{
+margin-top:10px;
+padding:10px;
+background:#333;
+border-radius:8px;
+}
+
+.itemline{
+margin:4px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🍨 Dessert Shop Orders</h1>
+
+<div id="orders"></div>
+
+<audio id="sound">
+<source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
+</audio>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+
+// ================= PASSWORD PROTECTION =================
+
+let pass = prompt("Enter Shop Password");
+
+if(pass !== "Anjali1302"){
+document.body.innerHTML = "<h2>Access Denied</h2>";
+throw new Error("Unauthorized");
+}
+
+// ================= FIREBASE CONFIG =================
+
+const firebaseConfig = {
+apiKey: "AIzaSyAmGMweAn4t7n4UMn79E7nhwbU_pNfWWRA",
+authDomain: "dessert-order-system-200b5.firebaseapp.com",
+databaseURL: "https://dessert-order-system-default-rtdb.firebaseio.com/",
+projectId: "dessert-order-system-200b5",
+storageBucket: "dessert-order-system-200b5.appspot.com",
+messagingSenderId: "774113650128",
+appId: "1:774113650128:web:3ef2848d32ffff5f9245d5"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+// ================= LISTEN FOR NEW ORDERS =================
+
+db.ref("orders").on("child_added", function(snapshot){
+
+let data = snapshot.val();
+
+// PLAY ALERT SOUND
+let sound = document.getElementById("sound");
+sound.play().catch(()=>{});
+
+// ================= DISPLAY ITEMS =================
+
+let itemsHTML = "";
+
+if(data.items && Array.isArray(data.items)){
+
+data.items.forEach(function(item){
+
+itemsHTML += `
+<div class="itemline">
+${item.name || "Item"} - Qty: ${item.qty || 1} - ${item.size || ""}
+</div>
+`;
+
+});
+
+}
+
+// ================= CREATE ORDER CARD =================
+
+let div = document.createElement("div");
+div.className = "order";
+
+div.innerHTML = `
+
+<div class="token">Order #${data.token}</div>
+
+<p><b>Name:</b> ${data.name}</p>
+<p><b>Phone:</b> ${data.phone}</p>
+
+<div class="items">
+<b>Items:</b>
+${itemsHTML || "No items"}
+</div>
+
+<p class="parcel"><b>Order Type:</b> ${data.orderType || "Eat Now"}</p>
+
+<p><b>Total Amount:</b> ₹${data.amount}</p>
+
+<p><b>Reward:</b> ${data.reward || "None"}</p>
+
+<p><b>Time:</b> ${data.time}</p>
+
+`;
+
+document.getElementById("orders").prepend(div);
+
+});
+
+</script>
+
+</body>
+</html>
+

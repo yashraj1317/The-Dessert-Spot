@@ -1,0 +1,87 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* CENTER PAGE */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2b0f0f, #4b1c1c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CONTAINER */
+.order-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  animation: popIn 0.8s ease;
+}
+
+/* CARD */
+.order-card {
+  background: #fff;
+  width: 90%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+}
+
+/* TITLE */
+.order-card h2 {
+  text-align: center;
+  color: #2b0f0f;
+  margin-bottom: 10px;
+}
+
+/* INPUTS */
+label {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+input, select {
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+input[readonly] {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+
+/* BUTTON */
+button {
+  margin-top: 10px;
+  background: #ffb703;
+  color: #2b0f0f;
+  border: none;
+  padding: 14px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* ANIMATION */
+@keyframes popIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
